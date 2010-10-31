@@ -17,7 +17,7 @@
       =link_to t("users.form.avatar_tip"), "http://gravatar.com", :target => "_blank"
   .general-info
     .avatar
-      = gravatar @user.email.to_s, :size => 128
+      = avatar_html @user, :size => 128
       .reputation
         =format_number(@user.reputation_on(current_group))
       .text
@@ -54,7 +54,7 @@
     .friend_list
       -@user.following.each do |follower|
         %span
-          = link_to gravatar(follower.email.to_s, :size => 24), user_path(follower)
+          = link_to avatar_html(follower, :size => 24), user_path(follower)
   -if @user.followers.count > 0
     %h2.title
       .counter
@@ -63,7 +63,7 @@
     .friend_list
       -@user.followers.each do |follower|
         %span
-          =link_to gravatar(follower.email.to_s, :size => 24), user_path(follower)
+          =link_to avatar_html(follower, :size => 24), user_path(follower)
 
   .secondary-navigation{:class => @q_sort||"votes"}
     .navtitle

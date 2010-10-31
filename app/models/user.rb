@@ -53,6 +53,7 @@ class User
   key :feed_token,                String
 
   key :anonymous,                 Boolean, :default => false, :index => true
+  key :avatar_url,                String
 
   has_many :questions, :dependent => :destroy
   has_many :answers, :dependent => :destroy

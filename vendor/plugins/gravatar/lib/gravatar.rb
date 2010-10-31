@@ -37,6 +37,24 @@ module GravatarHelper
   # The methods that will be made available to your views.
   module PublicMethods
   
+    # Return the HTML img tag for the given user's avatar or gravatar. Presumes that 
+    # the given user object will respond_to "avatar_url" and "email"
+    def avatar_html(user, options={})
+      if user.avatar_url
+        image_html(user.thumbnail_url, options)
+      else
+        gravatar(user.email, options)
+      end
+    end
+
+    # Return the HTML img tag for the given image url
+    def image_html(image_url, options={})
+      src = h(image_url)
+      options = DEFAULT_OPTIONS.merge(options)
+      [:class, :alt, :size].each { |opt| options[opt] = h(options[opt]) }
+      "<img class=\"#{options[:class]}\" alt=\"#{options[:alt]}\" width=\"#{options[:size]}\" height=\"#{options[:size]}\" src=\"#{src}\" />"
+    end
+
     # Return the HTML img tag for the given user's gravatar. Presumes that 
     # the given user object will respond_to "email", and return the user's
     # email address.

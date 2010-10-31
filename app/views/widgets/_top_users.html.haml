@@ -5,7 +5,7 @@
     -widget.top_users(current_group).each do |user|
       %li
         .gravatar
-          =gravatar(user.email.to_s, :size => 32)
+          =avatar_html(user, :size => 32)
         .item
           =link_to h(user.login), user_path(user)
           ==(#{user.reputation_on(current_group)})

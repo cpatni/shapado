@@ -73,7 +73,7 @@
     .author.user_info.vcard
       .gravatar.logo
         -if !@question.anonymous
-          = gravatar(@question.user.email.to_s, :size => 32)
+          = avatar_html(@question.user, :size => 32)
       .user_data
         %span.asked_by
           = t('activerecord.attributes.question.asked_by')
@@ -95,7 +95,7 @@
     - if @question.updated_by.present?
       .user_info
         .gravatar.logo
-          = gravatar(@question.updated_by.email.to_s, :size => 32)
+          = avatar_html(@question.updated_by, :size => 32)
         .user_data
           %span.asked_by
             = t('activerecord.attributes.question.updated_by')
