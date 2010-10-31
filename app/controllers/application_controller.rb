@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   include Rack::Recaptcha::Helpers
   include AuthenticatedSystem
+  include SsoIntegration if AppConfig.sso_integration['activate']
   include Subdomains
   include Sweepers
 

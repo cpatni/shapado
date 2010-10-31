@@ -54,6 +54,7 @@ class User
 
   key :anonymous,                 Boolean, :default => false, :index => true
   key :avatar_url,                String
+  key :sso_id,                    String, :index => true
 
   has_many :questions, :dependent => :destroy
   has_many :answers, :dependent => :destroy
@@ -495,7 +496,7 @@ Time.zone.now ? 1 : 0)
   end
 
   def password_required?
-    return false if openid_login? || twitter_login? || self.anonymous
+    return false if openid_login? || sso_id.present? || twitter_login? || self.anonymous
 
     (encrypted_password.blank? || !password.blank?)
   end

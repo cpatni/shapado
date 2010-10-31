@@ -35,7 +35,7 @@
         =link
         |
     .entry
-      =link_to t("layouts.application.logout"), destroy_user_session_path
+      =link_to t("layouts.application.logout"), signout_url_helper
   -else
     -if AppConfig.is_shapadocom && !current_group.isolate
       .entry
@@ -46,7 +46,7 @@
         =link
         |
     .entry
-      =link_to t("layouts.application.log_in"), new_user_session_path
+      =link_to t("layouts.application.log_in"), signin_url_helper
   .entry
     - form_tag search_path, :method => :get, :style => "margin-left: 20px; max-width: 10%; display: inline" do
       = text_field_tag :q, params[:q], :id => "search-field"

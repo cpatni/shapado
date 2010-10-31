@@ -10,3 +10,4 @@ data/*.dat
 config/database.yml
 base_packaged.*
 .directory
+lib/sso_integration.rb

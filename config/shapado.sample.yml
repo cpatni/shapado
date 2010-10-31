@@ -49,6 +49,10 @@ base: &common
     exception_recipients:
     - admin@example.com
 
+  sso_integration:
+    activate: false
+
+
 development:
   <<: *common
   domain: localhost.lan

@@ -1,0 +1,45 @@
+module SsoIntegration
+  def self.included(controller)
+    controller.class_eval do
+      before_filter :sso_login
+      helper_method :sso_signin_url, :sso_signout_url
+    end
+  end
+  
+  def sso_signin_url
+    "http://sso.localhost/signin?redirect=#{CGI::escape(url_for(:only_path => false))}"
+  end
+  
+  def sso_signout_url
+    "http://sso.localhost/signout?redirect=#{CGI::escape(url_for(:only_path => false))}"
+  end
+
+  def sso_login
+    if cookies["sso_cookie"].present?
+      user = User.first(:sso_id =>extract_sso_id)
+      unless user
+        user = build_sso_user
+        current_group.add_member(user, "user")
+        user.save!
+      end
+      warden.set_user(user, :scope => "user")
+      after_authentication(user)
+    else
+      if current_user && logged_in? && current_user.sso_id.present?
+        warden.raw_session.inspect
+        warden.logout
+      end 
+    end
+  end
+
+  def build_sso_user
+    sso_id = extract_sso_id
+    user = User.new(:sso_id =>sso_id)
+    user.login = sso_id
+  end
+  
+  def extract_sso_id
+    cookies["sso_cookie"]
+  end
+
+end

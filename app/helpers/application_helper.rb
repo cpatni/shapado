@@ -316,5 +316,13 @@ module ApplicationHelper
       render_page_links(line.strip)
     end
   end
+  
+  def signin_url_helper
+    AppConfig.sso_integration['activate'] ? sso_signin_url :  new_user_session_path
+  end
+
+  def signout_url_helper
+    AppConfig.sso_integration['activate'] ? sso_signout_url :  destroy_user_session_path
+  end
 end
 

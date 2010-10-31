@@ -41,7 +41,7 @@ module GravatarHelper
     # the given user object will respond_to "avatar_url" and "email"
     def avatar_html(user, options={})
       if user.avatar_url
-        image_html(user.thumbnail_url, options)
+        image_html(user.avatar_url, options)
       else
         gravatar(user.email, options)
       end
