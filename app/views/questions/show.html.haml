@@ -7,7 +7,7 @@
 
 - if logged_in?
   - if current_user.mod_of?(current_group) && @question.closed
-    - show_close_request_form = (@question.close_reason.user_id == current_user.id)
+    - show_close_request_form = (@question.close_reason && @question.close_reason.user_id == current_user.id)
   - @flag = current_user.has_flagged?(@question) || Flag.new
 
 - @flag ||= Flag.new
